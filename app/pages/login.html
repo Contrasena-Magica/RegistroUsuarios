@@ -4,24 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar sesión</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <script src="login.js" defer></script>
 </head>
 <body>
-  <main>
-    <div class="form-container">
-      <h1>Iniciar sesión</h1>
-      <p>Ingresá tus credenciales para acceder al área de administración.</p>
-      <form id="login-form">
-        <label for="user" class="sr-only">User</label>
-        <input type="text" name="user" id="user" placeholder="Nombre de usuario">
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" name="password" id="password" placeholder="Contraseña">
-        <button type="submit">Iniciar sesión</button>
-        <p class="error escondido">Error al iniciar sesión</p>
-      </form>
-      <p>¿Todavía no tenés una cuenta? - <a href="/register">Registrate</a></p>
+
+  <div class="container" id="container">
+       <div class="form-container sign-up">
+          <form >
+              <h1>Crear Cuenta</h1>
+               <div class="social-icons">
+                    <i class="fa-solid fa-user"></i>    
+              </div>
+              <span>Usa tu correo para registrarte</span>
+                <input type="text" name="user" id="user" placeholder="Nombre de usuario">
+                <input type="email" name="email" id="email" placeholder="Correo electrónico">
+                <input type="password" name="password" id="password" placeholder="Contraseña">
+                <button>Registrarse</button>
+          </form>
+       </div>
+       <div class="form-container sign-in">
+        <form >
+            <h1>Iniciar Sesión</h1>
+            <div class="social-icons">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <span>Inicie sesión con su correo y contraseña</span>
+             <input type="email" name="email" id="email" placeholder="Correo electrónico">
+             <input type="password" name="password" id="password" placeholder="Contraseña">
+             <a href="#">¿Olvidaste tu contraseña?</a>
+            <button>Iniciar Sesión</button>
+        </form>
     </div>
-  </main>
+    <div class="toggle-container">
+        <div class="toggle">
+            <div class="toggle-panel toggle-left">
+              <h1>¡Bienvenido de vuelta!</h1>
+              <p>Ingrese sus detalles personales para acceder</p>
+              <button class="hidden" id="login">Iniciar Sesión</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+              <h1>¡Bienvenido!</h1>
+              <p>Regístrese con sus detalles personales para acceder</p>
+              <button class="hidden" id="register">Registrarse</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+  <script src="script.js"></script>
 </body>
 </html>
