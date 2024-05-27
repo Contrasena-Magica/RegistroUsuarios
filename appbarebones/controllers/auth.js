@@ -1,16 +1,7 @@
 const mysql2 = require('mysql2');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-var nodemailer = require('nodemailer');
-
-var transporter = nodemailer.createTransport({
-	service: 'gmail',
-	auth: {
-		user: 'jorday.02@gmail.com',
-		pass: 'onavas.2011'
-	}
-});
-
+const { sendConfirmationEmail } = require('./mail');
 
 // localhost rules, will change once actual server goes up
 const db = mysql2.createConnection({
@@ -31,28 +22,51 @@ exports.signup = ((req, res) => {
 			});
 		}
 		if (password !== passwordConfirm) {
-			return res.render('signup', {
-				message: "Passwords do not match"
-			});
+			return res.render('signup');
 		};
 		let hashedPass = await bcrypt.hash(password, 8);
 		console.log(hashedPass);
-		db.query('INSERT INTO user SET ?', {email: email, password: hashedPass }, (err, result) => {
+		db.query('INSERT INTO user SET ?', {email: email, password: hashedPass, isverified: 0}, (err, result) => {
 			if (err) throw err;
 			return res.render('signup', {
-				message: 'Successfully registered'
+				message: 'Successfully registered. Check your email to confirm your account.'
 			});
 			console.log("user registered");
 		})
 	});
-	var mailOptions = {
-	from: 'jorday.02@gmail.com',
-	to: req.body.email,
-	subject: 'Confirm email!',
-	text: 'Figure it out'
-	};
-	transporter.sendMail(mailOptions, function(err, info) {
-		if (err) throw err;
-		else console.log('Email sent: ' + info.response);
-	});
+	sendConfirmationEmail(email);
 });
+
+exports.login = (req, res) => {
+    const { email, password } = req.body;
+
+    // Check if the user exists in the database
+    db.query('SELECT * FROM users WHERE email = ?', [email], async (error, results) => {
+        if (error) {
+            console.error(error);
+            res.status(500).send('Server error');
+            return;
+        }
+
+        if (!results || results.length === 0) {
+            // User with this email doesn't exist
+            res.status(401).send('Invalid credentials');
+            return;
+        }
+
+        // Compare the provided password with the hashed password stored in the database
+        const user = results[0];
+        const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordMatch) {
+            // Passwords don't match
+            res.status(401).send('Invalid credentials');
+            return;
+        }
+
+        // Generate a JWT token
+        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        res.json({ token });
+    });
+}
