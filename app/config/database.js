@@ -1,7 +1,6 @@
 // app/config/database.js
-const sqlite3 = require('sqlite3').verbose();
-
-let db = new sqlite3.Database('./db/RegistroUsuarios.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+import sqlite3 from 'sqlite3';
+const db = new sqlite3.Database('./databases/User.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
   if (err) {
     console.error(err.message);
     throw err;
@@ -9,4 +8,4 @@ let db = new sqlite3.Database('./db/RegistroUsuarios.db', sqlite3.OPEN_READWRITE
   console.log('Conectado a la base de datos SQLite.');
 });
 
-module.exports = db;
+export { db };  // Exportación nombrada

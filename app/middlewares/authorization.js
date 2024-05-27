@@ -1,36 +1,38 @@
 import jsonwebtoken from "jsonwebtoken";
 import dotenv from "dotenv";
-import {usuarios} from "./../controllers/authentication.controller.js";
-import db from '../config/database.js';
-
+import { db } from '../config/database.js';
 
 dotenv.config();
 
 async function revisarCookie(req) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     try {
       const cookies = req.headers.cookie;
       if (!cookies) return resolve(false);
       const cookieJWT = cookies.split("; ").find(cookie => cookie.startsWith("jwt="));
       if (!cookieJWT) return resolve(false);
       const token = cookieJWT.slice(4);
-      const decoded = jsonwebtoken.verify(token, process.env.JWT_SECRET);
-      
-      const sql = 'SELECT * FROM usuarios WHERE username = ?';
-      db.get(sql, [decoded.user], (err, row) => {
+      jsonwebtoken.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
-          console.error(err.message);
+          console.error("JWT verification error:", err.message);
           return resolve(false);
         }
-        if (!row) {
-          console.log("Usuario no encontrado en la base de datos.");
-          return resolve(false);
-        }
-        console.log("Usuario verificado correctamente.");
-        return resolve(true);
+        const sql = 'SELECT * FROM usuarios WHERE username = ?';
+        db.get(sql, [decoded.user], (err, row) => {
+          if (err) {
+            console.error("Database error:", err.message);
+            return resolve(false);
+          }
+          if (!row) {
+            console.log("Usuario no encontrado en la base de datos.");
+            return resolve(false);
+          }
+          console.log("Usuario verificado correctamente.");
+          return resolve(true);
+        });
       });
     } catch (err) {
-      console.error("Error al verificar el token: ", err);
+      console.error("Error handling cookies:", err.message);
       return resolve(false);
     }
   });
@@ -51,4 +53,4 @@ async function soloPublico(req, res, next) {
 export const methods = {
   soloAdmin,
   soloPublico,
-}
+};

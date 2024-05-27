@@ -1,5 +1,5 @@
 // app/db/initDb.js
-const db = require('../config/database');
+import { db } from '../config/database.js';
 
 db.run(`CREATE TABLE IF NOT EXISTS usuarios (
   id INTEGER PRIMARY KEY AUTOINCREMENT,

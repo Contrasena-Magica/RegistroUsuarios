@@ -1,5 +1,5 @@
 // app/models/user.model.js
-const db = require('../config/database');
+import { db } from '../config/database.js';
 
 class User {
   static findByUsername(username) {
