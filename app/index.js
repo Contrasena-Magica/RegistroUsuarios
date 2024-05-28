@@ -1,20 +1,16 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const authRoutes = require('./routes/auth');
-require('dotenv').config();
+import express from 'express';
+import bodyParser from 'body-parser';
+import authRoutes from './routes/auth.js';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config();
 
-const jwt = require('jsonwebtoken');
 const app = express();
-
-const SECRET = process.env.SECRET;
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/auth', authRoutes);
+app.use('./routes/auth.js', authRoutes);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
