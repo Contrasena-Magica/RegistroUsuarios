@@ -1,4 +1,4 @@
-const mensajeError = document.getElementsByClassName("error")[0];
+//const mensajeError = document.getElementsByClassName("error")[0];
 
 document.getElementById("register-form").addEventListener("submit",async(e)=>{
   e.preventDefault();
@@ -10,8 +10,8 @@ document.getElementById("register-form").addEventListener("submit",async(e)=>{
     },
     body: JSON.stringify({
       user: e.target.children.user.value,
-      email: e.target.children.email.value,
-      password: e.target.children.password.value
+      email: e.target.children.reg_email.value,
+      password: e.target.children.reg_password.value
     })
   });
   if(!res.ok) return mensajeError.classList.toggle("escondido",false);

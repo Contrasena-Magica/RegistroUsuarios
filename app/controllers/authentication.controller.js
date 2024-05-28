@@ -21,6 +21,7 @@ async function login(req,res){
   console.log(req.body);
   const email = req.body.email;
   const password = req.body.password;
+
   if(!email || !password){
     return res.status(400).send({status:"Error",message:"Los campos están incompletos"})
   }
@@ -46,6 +47,7 @@ async function login(req,res){
 }
 
 async function register(req,res){
+  console.log(req.body);
   const user = req.body.user;
   const password = req.body.password;
   const email = req.body.email;

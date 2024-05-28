@@ -20,8 +20,10 @@ app.use(bodyParser.json());
 
 //Configuración
 app.use(express.static(__dirname + "/public"));
+app.use('/admin', express.static(path.join(__dirname, 'admin')));
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
+
 
 
 //Rutas
