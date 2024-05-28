@@ -1,18 +1,32 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import authRoutes from './routes/auth.js';
-import dotenv from 'dotenv';
+import  express  from "express";
+import cookieParser from 'cookie-parser';
+//Fix para __direname
+import path from 'path';
+import {fileURLToPath} from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import {methods as authentication} from "./controllers/authentication.controller.js"
+import {methods as authorization} from "./middlewares/authorization.js";
+import  bodyParser  from "body-parser";
 
-dotenv.config();
-
+//Server
 const app = express();
+app.set("port",4000);
+app.listen(app.get("port"));
+console.log("Servidor corriendo en puerto",app.get("port"));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+// Configurar body-parser para manejar datos de formularios
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('./routes/auth.js', authRoutes);
+//Configuración
+app.use(express.static(__dirname + "/public"));
+app.use(express.json());
+app.use(cookieParser())
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+//Rutas
+app.get("/",authorization.soloPublico, (req,res)=> res.sendFile(__dirname + "/pages/login.html"));
+app.get("/register",authorization.soloPublico,(req,res)=> res.sendFile(__dirname + "/pages/register.html"));
+app.get("/admin",authorization.soloAdmin,(req,res)=> res.sendFile(__dirname + "/pages/admin/admin.html"));
+app.post("/api/login",authentication.login);
+app.post("/api/register",authentication.register);

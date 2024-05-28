@@ -25,16 +25,17 @@
           </form>
        </div>
        <div class="form-container sign-in">
-        <form >
+        <form id="login-form" action="/api/login/" method="post" >
             <h1>Iniciar Sesión</h1>
             <div class="social-icons">
               <i class="fa-solid fa-user"></i>
             </div>
             <span>Inicie sesión con su correo y contraseña</span>
-             <input type="email" name="email" id="email" placeholder="Correo electrónico">
+             <input type="text" name="email" id="email" placeholder="Correo electrónico">
              <input type="password" name="password" id="password" placeholder="Contraseña">
              <a href="#">¿Olvidaste tu contraseña?</a>
             <button>Iniciar Sesión</button>
+            <p class="error escondido">Error al iniciar sesión</p>
         </form>
     </div>
     <div class="toggle-container">
