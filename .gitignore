@@ -1,0 +1,10 @@
+
+.env
+
+app/pages/admin/assets
+app/pages/admin/gulp-tasks
+app/pages/admin/node_modules
+app/pages/admin/pages
+app/pages/admin/partials
+app/pages/admin/gulpfile.js
+app/pages/admin/index.html

@@ -7,34 +7,36 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <script src="login.js" defer></script>
+  <script src="register.js" defer></script>
 </head>
 <body>
 
   <div class="container" id="container">
        <div class="form-container sign-up">
-          <form >
+          <form id="register-form" action="/api/register/" method="post">
               <h1>Crear Cuenta</h1>
                <div class="social-icons">
                     <i class="fa-solid fa-user"></i>    
               </div>
               <span>Usa tu correo para registrarte</span>
                 <input type="text" name="user" id="user" placeholder="Nombre de usuario">
-                <input type="email" name="email" id="email" placeholder="Correo electrónico">
-                <input type="password" name="password" id="password" placeholder="Contraseña">
+                <input type="text" name="reg_email" id="reg_email" placeholder="Correo electrónico">
+                <input type="password" name="reg_password" id="reg_password" placeholder="Contraseña">
                 <button>Registrarse</button>
           </form>
        </div>
        <div class="form-container sign-in">
-        <form >
+        <form id="login-form" action="/api/login/" method="post" >
             <h1>Iniciar Sesión</h1>
             <div class="social-icons">
               <i class="fa-solid fa-user"></i>
             </div>
             <span>Inicie sesión con su correo y contraseña</span>
-             <input type="email" name="email" id="email" placeholder="Correo electrónico">
+             <input type="text" name="email" id="email" placeholder="Correo electrónico">
              <input type="password" name="password" id="password" placeholder="Contraseña">
              <a href="#">¿Olvidaste tu contraseña?</a>
             <button>Iniciar Sesión</button>
+            <p class="error escondido">Error al iniciar sesión</p>
         </form>
     </div>
     <div class="toggle-container">

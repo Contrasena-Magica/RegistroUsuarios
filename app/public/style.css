@@ -211,3 +211,11 @@ body{
 .container.active .toggle-right{
   transform: translateX(200%);
 }
+
+.error{
+  color: rgb(255, 81, 81);
+}
+
+.escondido{
+  display: none;
+}

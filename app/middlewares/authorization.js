@@ -18,15 +18,18 @@ function soloPublico(req,res,next){
 
 function revisarCookie(req){
   try{
+    const usuario = decodeURIComponent(req.headers.cookie.split("; ").find(cookie => cookie.startsWith("usuario="))).slice(8);
+/*
     const cookieJWT = req.headers.cookie.split("; ").find(cookie => cookie.startsWith("jwt=")).slice(4);
     const decodificada = jsonwebtoken.verify(cookieJWT,process.env.JWT_SECRET);
     console.log(decodificada)
-    const usuarioAResvisar = usuarios.find(usuario => usuario.user === decodificada.user);
+    */
+    const usuarioAResvisar = usuarios.find(u => u.user === usuario);
     console.log(usuarioAResvisar)
     if(!usuarioAResvisar){
       return false
     }
-    return true;
+      return true;
   }
   catch{
     return false;
