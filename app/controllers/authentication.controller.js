@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import jsonwebtoken from "jsonwebtoken";
+import bcryptjs from "bcryptjs";
 
 dotenv.config();
 
@@ -16,10 +17,11 @@ export const usuarios = [{
 ]
 
 
-async function login(req,res){
+async function login(req,res, email, password){
   console.log(req.body);
-  const email = req.body.email;
-  const password = req.body.password;
+  email = email || req.body.email;
+  password = password || req.body.password;
+
   if(!email || !password){
     return res.status(400).send({status:"Error",message:"Los campos están incompletos"})
   }
@@ -27,8 +29,13 @@ async function login(req,res){
   if(!usuarioAResvisar){
     return res.status(400).send({status:"Error",message:"Usuario o contraseña invalida"})
   }
+  /*
     if(password != usuarioAResvisar.password){
     return res.status(400).send({status:"Error",message:"Usuario o contraseña invalida"})
+  }*/
+  const passwordMatch = await bcryptjs.compare(password, usuarioAResvisar.password);
+  if (!passwordMatch) {
+    return res.status(400).send({ status: "Error", message: "Usuario o contraseña invalida" });
   }
   /*
   const token = jsonwebtoken.sign(
@@ -55,6 +62,7 @@ async function register(req,res){
   if(usuarioAResvisar){
     return res.status(400).send({status:"Error",message:"Este usuario ya existe"})
   }
+
   const salt = await bcryptjs.genSalt(5);
   const hashPassword = await bcryptjs.hash(password,salt);
   const nuevoUsuario ={
@@ -62,7 +70,9 @@ async function register(req,res){
   }
   usuarios.push(nuevoUsuario);
   console.log(usuarios);
-  return res.status(201).send({status:"ok",message:`Usuario ${nuevoUsuario.user} agregado`,redirect:"/"})
+  //return res.status(201).send({status:"ok",message:`Usuario ${nuevoUsuario.user} agregado`,redirect:"/admin"})
+  // Llamar a la función login después de agregar el nuevo usuario
+  login(req, res, email, password);
 }
 
 export const methods = {
