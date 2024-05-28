@@ -17,7 +17,7 @@ async function revisarCookie(req) {
           console.error("JWT verification error:", err.message);
           return resolve(false);
         }
-        const sql = 'SELECT * FROM usuarios WHERE username = ?';
+        const sql = 'SELECT * FROM usuarios WHERE user = ?';
         db.get(sql, [decoded.user], (err, row) => {
           if (err) {
             console.error("Database error:", err.message);
