@@ -1,27 +1,26 @@
 import dotenv from "dotenv";
 import jsonwebtoken from "jsonwebtoken";
-import bcryptjs from "bcryptjs";
+//import bcryptjs from "bcryptjs";
 
 dotenv.config();
 
 export const usuarios = [{
   user: "Denisse Antunez",
   email: "denisse@uson.mx",
-  password: "12345"
+  password: '12345' 
 },
 {
   user: "Jazmin Antunez",
   email: "jaz@uson.mx",
-  password: "12345"
+  password: '12345'
 }
 ]
 
 
-async function login(req,res, email, password){
+async function login(req,res){
   console.log(req.body);
-  email = email || req.body.email;
-  password = password || req.body.password;
-
+  const email = req.body.email;
+  const password = req.body.password;
   if(!email || !password){
     return res.status(400).send({status:"Error",message:"Los campos están incompletos"})
   }
@@ -29,13 +28,8 @@ async function login(req,res, email, password){
   if(!usuarioAResvisar){
     return res.status(400).send({status:"Error",message:"Usuario o contraseña invalida"})
   }
-  /*
     if(password != usuarioAResvisar.password){
     return res.status(400).send({status:"Error",message:"Usuario o contraseña invalida"})
-  }*/
-  const passwordMatch = await bcryptjs.compare(password, usuarioAResvisar.password);
-  if (!passwordMatch) {
-    return res.status(400).send({ status: "Error", message: "Usuario o contraseña invalida" });
   }
   /*
   const token = jsonwebtoken.sign(
@@ -62,14 +56,15 @@ async function register(req,res){
   if(usuarioAResvisar){
     return res.status(400).send({status:"Error",message:"Este usuario ya existe"})
   }
-
+/*
   const salt = await bcryptjs.genSalt(5);
-  const hashPassword = await bcryptjs.hash(password,salt);
+  const hashPassword = await bcryptjs.hash(password,salt);*/
   const nuevoUsuario ={
-    user, email, password: hashPassword
+    user, email, password
   }
   usuarios.push(nuevoUsuario);
   console.log(usuarios);
+  //console.log(hashPassword);
   //return res.status(201).send({status:"ok",message:`Usuario ${nuevoUsuario.user} agregado`,redirect:"/admin"})
   // Llamar a la función login después de agregar el nuevo usuario
   login(req, res, email, password);
