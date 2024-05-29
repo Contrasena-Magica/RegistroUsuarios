@@ -1,39 +1,64 @@
-# Registro de Usuarios
+# Formulario de inicio de sesion + dashboard
 
-El proyecto consiste en una página web de inicio de sesión de usuarios que permite a los usuarios autenticarse de forma segura, crear cuentas, gestionar contraseñas y acceder a su cuenta de usuario. A continuación, se describen las características clave del proyecto y las historias de usuario:
+Este repositorio contiene el codigo fuente del proyecto de la materia de Ing. de software. El proyecto consiste en una pagina web de inicio de sesion de usuarios
+que permite a estos mismos auntenticarse de forma segura, crear cuentas, gestionar contraseñas y acceder a su cuenta de usuario para visualizar un dashboard. Sigue las instrucciones a continuacion para configurar el entorno de desarrollo.
 
-## Características Principales
-- Autenticación segura: Los usuarios pueden iniciar sesión utilizando sus credenciales de acceso de manera segura y protegida.
-- Registro de nuevos usuarios: Permite a los usuarios crear nuevas cuentas proporcionando información básica.
-- Gestión de contraseñas: Los usuarios pueden restablecer sus contraseñas mediante un proceso de confirmación por correo electrónico.
-- Experiencia de usuario intuitiva: La interfaz de usuario está diseñada para ser fácil de usar y accesible.
-- Protección de datos: El proyecto cumple con los estándares de seguridad y privacidad de datos para proteger la información del usuario.
+## Dashboard
+
+El dashboard muestra los casos de COVID-19 registrados por continente.
+
+## Estructura del Proyecto
+
+El repositorio está organizado de la siguiente manera:
+
+- **/app/:** Contiene los principales componentes lógicos y de datos del backend.
+
+    - **config/:** Configuraciones globales del proyecto, incluyendo la configuración de bases de datos.
+    - **controllers/:** Controladores que manejan la lógica de negocio para las diversas rutas.
+    - **databases/:** Almacena los archivos de bases de datos como SQLite que contienen los datos de la aplicación.
+    - **middlewares/:** Funciones de middleware que procesan las solicitudes antes de llegar a las rutas finales.
+    - **models/:** Modelos que definen la estructura de las bases de datos y la lógica para interactuar con ellas.
+    - **pages/:** Contiene las páginas HTML estáticas que se sirven al cliente
+    - **public/:** Archivos estáticos (CSS, JavaScript, imágenes) accesibles directamente por los clientes.
+    - **server/:** Punto de entrada principal del servidor que configura el middleware y las rutas.
+
+- **services/:** Contiene servicios auxiliares, como puede ser la lógica de negocios reutilizable o integraciones con APIs externas.
   
-## Historias de Usuario
-### Registro de Usuario
-- Configurar un entorno de desarrollo con Node.js para el backend y React con Tailwind CSS para el frontend.
-- Crear un esquema de base de datos MySQL para almacenar la información del usuario (nombre, correo electrónico, contraseña, etc.).
-- Implementar el backend en Node.js para manejar las solicitudes de registro de usuarios.
-- Crear un formulario de registro en React con validación de datos en el cliente utilizando librerías como Formik y Yup.
-- Implementar la lógica para procesar la solicitud de registro en el backend, validar datos y almacenar al usuario en la base de datos.
-- Desarrollar la funcionalidad de envío de correo electrónico de confirmación para nuevos usuarios.
-- Probar la aplicación en contenedores Docker para garantizar que funcione correctamente en un entorno aislado y replicable.
+- **views/:** Contiene las plantillas de vista (por ejemplo, archivos .ejs) utilizadas para generar HTML dinámico.
 
-### Inicio de Sesión
-- Crear la interfaz de usuario de la página de inicio de sesión en React utilizando Tailwind CSS.
-- Configurar las rutas y controladores en el backend para manejar solicitudes de inicio de sesión.
-- Implementar la lógica de autenticación en el backend utilizando bcrypt para verificar contraseñas.
-- Establecer la sesión del usuario en el backend después de una autenticación exitosa y devolver un token de acceso JWT al cliente.
-- Desarrollar la lógica de cierre de sesión para destruir la sesión del usuario y eliminar el token de acceso.
+- **node_modules/:** Carpeta generada por Node.js que contiene todas las bibliotecas y dependencias del proyecto
 
-### Gestión de Contraseñas
-- Crear una página en el frontend para que los usuarios soliciten un restablecimiento de contraseña.
-- Implementar la lógica en el backend para generar un token de restablecimiento de contraseña único y enviarlo por correo electrónico al usuario.
-- Crear una ruta en el backend para manejar la solicitud de restablecimiento de contraseña y verificar la validez del token.
-- Desarrollar la interfaz de usuario para que los usuarios ingresen una nueva contraseña después de recibir el correo electrónico de restablecimiento.
-- Actualizar la contraseña del usuario en la base de datos después de la confirmación del restablecimiento.
+- **package.json:** Archivo de configuración de Node.js con información del proyecto y dependencias.
 
-### Criterios de Aceptación
-- Todas las funcionalidades de autenticación, registro y gestión de contraseñas deben ser fluidas, sin errores y seguras.
-- El sistema debe adherirse a las mejores prácticas para la autenticación y manejo de contraseñas, incluidos cifrado y protección contra amenazas de seguridad comunes.
-- Los mensajes y notificaciones al usuario deben ser claros y útiles en todo el proceso.
+## Requisitos Previos
+
+Antes de comenzar, asegúrate de tener instalado lo siguiente:
+
+- **Node.js**: Descargar e instalar [Node.js (v20.12.1)](https://nodejs.org/)
+- **NPM** (Administrador de paquetes de Node.js): Normalmente se instala automáticamente con Node.js.
+- Instala **SQlite** en tu sistema. Puedes descargar e instalar MySQL desde [mysql.com](https://www.sqlite.org/)
+
+## Instalacion
+
+1. Clona este repositorio en tu máquina local utilizando Git:    
+
+    ```
+    git clone https://github.com/Contrasena-Magica/bnmx-app.git
+    ```
+
+2. Instala las dependencias necesarias:
+
+    ```
+    node install express coockie-parser session sqlite3 bcryptjs jsonwebtoken dotenv validator
+    ```
+
+3. Utiliza Docker para ejecutar la aplicación. Puedes hacerlo utilizando el archivo **docker-compose.yml** proporcionado en este repositorio. Este archivo incluye la configuración necesaria para ejecutar la aplicación con Docker de forma rápida y sencilla.
+
+4. Ejecuta la aplicacion
+    ```
+    node app.js
+    ```
+
+La aplicación se ejecutará en http://localhost:4000. Abre tu navegador web y visita esta dirección para ver la aplicación en funcionamiento.
+
+
