@@ -1,13 +1,30 @@
-const container = document.getElementById('container');
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('container');
+    const registerBtn = document.getElementById('register');
+    const loginBtn = document.getElementById('login');
 
-const registerBtn = document.getElementById('register');
+    if (!container) {
+        console.error('Container element is missing.');
+        return;
+    }
 
-const loginBtn = document.getElementById('login');
+    if (!registerBtn) {
+        console.error('Register button is missing.');
+        return;
+    }
 
-registerBtn.addEventListener('click', ()=>{
-    container.classList.add("active");
-});
+    if (!loginBtn) {
+        console.error('Login button is missing.');
+        return;
+    }
 
-loginBtn.addEventListener('click', ()=>{
-    container.classList.remove("active");
+    // Listener para activar el contenedor.
+    registerBtn.addEventListener('click', () => {
+        container.classList.add("active");
+    });
+
+    // Listener para desactivar el contenedor.
+    loginBtn.addEventListener('click', () => {
+        container.classList.remove("active");
+    });
 });

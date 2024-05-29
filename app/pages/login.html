@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar sesión</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="login.css">
   <script src="login.js" defer></script>
 </head>
 <body>
@@ -18,9 +18,18 @@
                 <i class="fa-solid fa-user"></i>
             </div>
             <span>Usa tu correo para registrarte</span>
-            <input type="text" name="user"  placeholder="Nombre de usuario">
-            <input type="email" name="email"  placeholder="Correo electrónico">
-            <input type="password" name="password" placeholder="Contraseña">
+            <label>
+                Nombre de usuario:
+                <input type="text" name="user"  placeholder="Nombre de usuario" required>
+            </label>
+            <label>
+                Correo electrónico:
+                <input type="email" name="email"  placeholder="Correo electrónico" required>
+            </label>
+            <label>
+                Contraseña:
+                <input type="password" name="password" placeholder="Contraseña" required>
+            </label>
             <button type="submit">Registrarse</button>
         </form>
     </div>
@@ -31,8 +40,14 @@
                 <i class="fa-solid fa-user"></i>
             </div>
             <span>Inicie sesión con su correo y contraseña</span>
-            <input type="email" name="user" placeholder="Correo electrónico">
-            <input type="password" name="password" placeholder="Contraseña">
+            <label>
+                Correo electrónico:
+                <input type="email" name="user" placeholder="Correo electrónico" required>
+            </label>
+            <label>
+                Contraseña:
+                <input type="password" name="password" placeholder="Contraseña" required>
+            </label>
             <a href="#">¿Olvidaste tu contraseña?</a>
             <button type="submit">Iniciar Sesión</button>
         </form>

@@ -1,13 +1,14 @@
 // app/models/user.model.js
-import { db } from '../config/database.js';
+import { userDB } from '../config/database.js';
+import validator from 'validator';  // Asumiendo que agregas esta librería para validación
 
 class User {
   static findByUsername(username) {
     return new Promise((resolve, reject) => {
       const sql = 'SELECT * FROM usuarios WHERE username = ?';
-      db.get(sql, [username], (err, row) => {
+      userDB.get(sql, [username], (err, row) => {
         if (err) {
-          reject(err);
+          reject(new Error(`Error al buscar el usuario: ${err.message}`));
         } else {
           resolve(row);
         }
@@ -17,27 +18,30 @@ class User {
 
   static create(username, email, hashedPassword) {
     return new Promise((resolve, reject) => {
+      // Validaciones más robustas
       if (!username || !email || !hashedPassword) {
-        return reject(new Error("Todos los campos son obligatorios"));
+        reject(new Error("Todos los campos son obligatorios"));
+        return;
       }
-      if (username.length < 3) {
-        return reject(new Error("El nombre de usuario debe tener al menos 3 caracteres"));
+      if (!validator.isLength(username, { min: 3 })) {
+        reject(new Error("El nombre de usuario debe tener al menos 3 caracteres"));
+        return;
       }
-      if (!email.includes('@')) {
-        return reject(new Error("Email no válido"));
+      if (!validator.isEmail(email)) {
+        reject(new Error("Email no válido"));
+        return;
       }
-      // Continúa con la inserción después de pasar las validaciones
+
       const sql = 'INSERT INTO usuarios (username, email, password) VALUES (?, ?, ?)';
-      db.run(sql, [username, email, hashedPassword], function(err) {
+      userDB.run(sql, [username, email, hashedPassword], function(err) {
         if (err) {
-          reject(err);
+          reject(new Error(`Error al crear el usuario: ${err.message}`));
         } else {
           resolve({ id: this.lastID });
         }
       });
     });
   }
-  
 }
 
-module.exports = User;
+export default User;
