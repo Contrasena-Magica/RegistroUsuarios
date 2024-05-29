@@ -57,3 +57,29 @@ exports.sendConfirmationEmail = (email) => {
 
     return token;
 };
+
+exports.sendForgotEmail = (email) => {
+    const token = generateToken();
+    const expirationTime = Date.now() + 3600000; // Token expires in 1 hour
+    const formattedExpirationTime = formatDate(expirationTime);
+
+    const mailOptions = {
+        from: 'jorday.02@gmail.com',
+        to: email,
+        subject: 'Reset your password!',
+        text: `Please click on the following link to reset your email: http://localhost:8080/forgot?token=${token}`
+    };
+
+    db.query('INSERT INTO email_tokens (email, token, expires_at) VALUES (?, ?, ?)', [email, token, formattedExpirationTime], (err, result) => {
+        if (err) throw err;
+        transporter.sendMail(mailOptions, function(err, info) {
+            if (err) {
+                throw err;
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+    });
+
+    return token;
+};

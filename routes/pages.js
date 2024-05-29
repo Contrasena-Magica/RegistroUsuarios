@@ -25,14 +25,17 @@ router.get('/logout', (req, res) => {
     res.render('logout');
 });
 
+router.get('/resetp', (req, res) => {
+    res.render('resetp');
+});
+
 function generateRandomChartData() {
-    // Generate some random data for demonstration
     const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
     const values = Array.from({ length: 7 }, () => Math.floor(Math.random() * 100));
     return { labels, values };
 }
 
-// Define the endpoint to generate the chart image using QuickChart.io
+// using quickchart to display graph data
 router.get('/chart', (req, res) => {
     const chartData = generateRandomChartData();
     const chartUrl = `https://quickchart.io/chart?c=${encodeURIComponent(JSON.stringify({
@@ -106,6 +109,27 @@ router.get('/confirm', (req, res) => {
                 res.render('confirm', { message: 'Email successfully confirmed' });
             });
         });
+    });
+});
+
+router.get('/forgot', (req, res) => {
+    const { token } = req.query;
+
+    db.query('SELECT * FROM email_tokens WHERE token = ?', [token], (err, results) => {
+        if (err) {
+            return res.render('forgot', { message: 'Server error' });
+        }
+
+        if (results.length === 0) {
+            return res.render('forgot', { message: 'Invalid or expired token' });
+        }
+
+        const tokenData = results[0];
+        const now = new Date();
+
+        if (now > new Date(tokenData.expires_at)) {
+            return res.render('forgot', { message: 'Token has expired' });
+        }
     });
 });
 

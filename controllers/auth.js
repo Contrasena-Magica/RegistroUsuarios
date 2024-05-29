@@ -1,7 +1,7 @@
 const mysql2 = require('mysql2');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { sendConfirmationEmail } = require('./mail');
+const { sendConfirmationEmail, sendForgotEmail } = require('./mail');
 
 const SECRET_KEY = 'anythinggoes';
 
@@ -33,7 +33,6 @@ exports.signup = ((req, res) => {
 			return res.render('signup', {
 				message: 'Successfully registered. Check your email to confirm your account.'
 			});
-			console.log("user registered");
 		})
 	});
 	sendConfirmationEmail(email);
@@ -63,6 +62,7 @@ exports.login = (req, res) => {
 		res.redirect('/log'); // Redirect to dashboard or any other route
     });
 };
+
 exports.verifyToken = (req, res, next) => {
 
     if (!token) {
@@ -79,3 +79,46 @@ exports.verifyToken = (req, res, next) => {
         }
     });
 };
+
+exports.forgotPassword = (req, res) => {
+	console.log("anyone call?");
+    const { email } = req.body;
+    db.query("SELECT * FROM user WHERE email = ?", [email], async (err, result) => {
+        if (err) throw err;
+        if (result.length === 0) {
+            return res.render('login', {
+                message: "Email not found in database"
+            });
+        } else {
+            console.log("Email sent for recovery");
+            sendForgotEmail(email);
+            return res.render('login', {
+                message: "Recovery email sent"
+            });
+        }
+    });
+};
+
+exports.resetPassword = ((req, res) => {
+	console.log(req.body);
+	const { password, passwordConfirm } = req.body;
+	db.query("SELECT password FROM user WHERE password = ?", [password], async (err, result) =>{
+		if (err) throw err;
+		if (result.length > 0) {
+			return res.render('signup', {
+				message: "How did I get here?"
+			});
+		}
+		if (password !== passwordConfirm) {
+			return res.render('resetp');
+		};
+		let hashedPass = await bcrypt.hash(password, 8);
+		console.log(hashedPass);
+		db.query('INSERT INTO user SET ?', {password: hashedPass}, (err, result) => {
+			if (err) throw err;
+			return res.render('signup', {
+				message: 'Successfully reset your password.'
+			});
+		})
+	});
+});

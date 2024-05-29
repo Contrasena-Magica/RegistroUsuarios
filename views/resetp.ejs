@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset password</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container sign-in">
+        <form action="/auth/resetPassword" method="post">
+            <h1>reset password</h1>
+            <input placeholder="Password" id="password" name="password" type="password" required>
+            <input placeholder="Confirm Password" id="passwordConfirm" name="passwordConfirm" type="password" required>
+            <button type="submit">Reset password</button>
+        </form>
+    </div>
+</body>
+</html>
