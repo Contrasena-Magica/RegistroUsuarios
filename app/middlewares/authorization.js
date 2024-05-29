@@ -6,7 +6,8 @@ dotenv.config();
 
 function soloAdmin(req,res,next){
   const logueado = revisarCookie(req);
-  if(logueado) return next();
+  if(logueado) { return next();
+  }
   return res.redirect("/")
 }
 
