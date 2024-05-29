@@ -4,12 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
     <title>Welcome</title>
+    <script>
+        // This script will redirect the user to the dashboard after 5 seconds
+        setTimeout(function(){
+            window.location.href = "/dashboard"; // Change "/dashboard" to your desired URL
+        }, 5000); // Time in milliseconds (5000 ms = 5 seconds)
+    </script>
 </head>
 <body>
-    <h1>Welcome</h1>
-    <p>Congratulations! You have successfully logged in.</p>
-    <!-- You can include additional content or links here -->
-    <a href="/"">Back to homepage</a> <!-- Example logout link -->
+    <div class="welcome-container">
+        <h1>Welcome</h1>
+        <p>Congratulations! You have successfully logged in.</p>
+        <p>You will be redirected to your dashboard shortly...</p>
+        <!-- You can include additional content or links here -->
+        <a href="/" class="logout-btn">Back to homepage</a> <!-- Example logout link -->
+    </div>
 </body>
 </html>

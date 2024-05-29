@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { sendConfirmationEmail } = require('./mail');
 
+const SECRET_KEY = 'anythinggoes';
+
 // localhost rules, will change once actual server goes up
 const db = mysql2.createConnection({
 	host: 'localhost',
@@ -35,6 +37,9 @@ exports.signup = ((req, res) => {
 		})
 	});
 	sendConfirmationEmail(email);
+	const token = jwt.sign({ email: email }, SECRET_KEY, { expiresIn: '1h' }); // Token expires in 1 hour
+    res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Store token in a cookie
+    res.redirect('/'); // Redirect to dashboard or any other route
 });
 
 exports.login = (req, res) => {
@@ -53,6 +58,24 @@ exports.login = (req, res) => {
                 message: "Incorrect password"
             });
         }
-        res.redirect('/log'); // Redirect to dashboard or any other route
+		const token = jwt.sign({ email: email }, SECRET_KEY, { expiresIn: '1h' }); // Token expires in 1 hour
+		res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 }); // Store token in a cookie
+		res.redirect('/log'); // Redirect to dashboard or any other route
+    });
+};
+exports.verifyToken = (req, res, next) => {
+
+    if (!token) {
+        return res.status(403).send('Access Denied');
+    }
+
+    jwt.verify(token, SECRET_KEY, (err, decodedToken) => {
+        if (err) {
+            console.log(err.message);
+            return res.status(403).send('Invalid Token');
+        } else {
+            console.log(decodedToken);
+            next();
+        }
     });
 };

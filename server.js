@@ -27,6 +27,11 @@ db.connect( (err) => {
 app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 
+app.get('/logout', (req, res) => {
+    res.clearCookie('jwt'); 
+    res.redirect('/login'); 
+});
+
 app.listen(8080, () => {
 	console.log("I'm running!");
 })

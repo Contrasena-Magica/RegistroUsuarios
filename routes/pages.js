@@ -20,6 +20,10 @@ router.get('/log', (req, res) => {
     res.render('log');
 });
 
+router.get('/dashboard', (req, res) => {
+	res.render('dashboard');
+});
+
 router.get('/confirm', (req, res) => {
     const { token } = req.query;
 
@@ -54,6 +58,7 @@ router.get('/confirm', (req, res) => {
         });
     });
 });
+
 
 
 module.exports = router;

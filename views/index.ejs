@@ -1,27 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-7">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-    <h1>Login Form</h1>
+<div class="container">
+    <div class="form-container sign-in">
+        <form action="/auth/login" method="post">
+            <h1>Login Form</h1>
+            <input placeholder="Email" id="email" name="email" type="text" required>
+            <input placeholder="Password" id="password" name="password" type="password" required>
+            <button type="submit">Login</button>
+            <p>Don't have an account? <a href="/signup">Create a new account</a></p>
+        </form>
+    </div>
 
-    <form action="/auth/login" method="post" >
-        <input placeholder="Email" id = "email" name="email" type="text">
-        <br>
-        <input placeholder="Password" id = "password" name="password" type="password">
-        <br>
-        <input class="sub" type="submit">
-     <h3>Dont have a account ?</h3>
-    <a href="/signup">Create a new account</a>
-    </form>
+    <div class="toggle-container">
+        <div class="toggle">
+            <div class="toggle-panel toggle-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start your journey with us</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+    const container = document.querySelector('.container');
+    const signInButton = document.getElementById('signIn');
+    const signUpButton = document.getElementById('signUp');
 
-    
+    signInButton.addEventListener('click', () => {
+        container.classList.remove('active');
+    });
+
+    signUpButton.addEventListener('click', () => {
+        container.classList.add('active');
+    });
+</script>
+
 </body>
 </html>
