@@ -1,3 +1,4 @@
+<!-- views/dashboard.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,7 @@
     <div class="dashboard-container">
         <header>
             <h1>Dashboard</h1>
-            <a href="/" class="logout-btn">Logout</a>
+            <a href="/logout" class="logout-btn">Logout</a>
         </header>
         <aside class="sidebar">
             <nav>
@@ -20,6 +21,7 @@
                     <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="#profile"><i class="fas fa-user"></i> Profile</a></li>
                     <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="/dashboard"><i class="fas fa-chart-line"></i> Graphs</a></li>
                 </ul>
             </nav>
         </aside>
@@ -36,8 +38,45 @@
                 <h2>Settings</h2>
                 <p>Customize your dashboard settings and preferences here.</p>
             </section>
+            <section id="graphs" class="card"> <!-- New section for displaying graphs -->
+                <h2>Graphs</h2>
+                <canvas id="randomGraph"></canvas> <!-- Placeholder for the graph -->
+            </section>
         </main>
     </div>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/random-graph-data') // Assuming this endpoint returns the graph data
+                .then(response => response.json())
+                .then(graphData => {
+                    const ctx = document.getElementById('randomGraph').getContext('2d');
+
+                    const chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: graphData.labels,
+                            datasets: [{
+                                label: 'Random Data',
+                                data: graphData.values,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching graph data:', error);
+                });
+        });
+    </script>
 </body>
 </html>

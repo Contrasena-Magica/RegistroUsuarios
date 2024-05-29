@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const app = express();
 const mysql2 = require('mysql2');
 const db = mysql2.createConnection({
     host: 'localhost',
@@ -20,8 +21,21 @@ router.get('/log', (req, res) => {
     res.render('log');
 });
 
+router.get('/logout', (req, res) => {
+    res.render('logout');
+});
+
+app.get('/logout', (req, res) => {
+    res.clearCookie('jwt'); 
+    res.redirect('/logout'); 
+});
+
 router.get('/dashboard', (req, res) => {
-	res.render('dashboard');
+	const randomData = {
+        labels: Array.from({ length: 10 }, (_, i) => `Label ${i + 1}`),
+        values: Array.from({ length: 10 }, () => Math.floor(Math.random() * 100))
+    };
+    res.render('dashboard', { graphData: randomData });
 });
 
 router.get('/confirm', (req, res) => {
