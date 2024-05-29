@@ -11,6 +11,8 @@ import morgan from 'morgan'
 //Server
 const app = express();
 
+
+
 const pagesPath = path.join(fileURLToPath(import.meta.url), '...', 'pages');
 app.use(morgan('dev'))
 app.set("port",4000);
@@ -27,7 +29,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(cookieParser());
 
+//////
+//import dataRoute from './routes/dashboarddata.js';
+import dataRoute from './routes/dashboarddata.js';
 
+
+/////
 
 //Rutas
 app.get("/",authorization.soloPublico, (req,res)=> res.sendFile(__dirname + "/pages/login.html"));
@@ -35,8 +42,8 @@ app.get("/register",authorization.soloAdmin,(req,res)=> res.sendFile(__dirname +
 app.get("/admin",authorization.soloAdmin,(req,res)=> res.sendFile(path.join(__dirname, 'public',"../pages/admin/index.html")));
 app.post("/api/login",authentication.login);
 app.post("/api/register",authentication.register);
-app.post("/api/adduser",database.adduser);
-app.post("/api/finduser",database.finduser);
+//app.post("/api/adduser",database.adduser);
+//app.post("/api/finduser",database.finduser);
 
 app.listen(app.get("port"));
 console.log("Servidor corriendo en puerto",app.get("port"));
