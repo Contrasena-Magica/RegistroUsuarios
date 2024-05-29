@@ -36,7 +36,7 @@ h5 {
 }
 
 p {
-	font-size: 14px;
+	font-size: 12px;
 	font-weight: 400;
 	letter-spacing: .05em;
 	color: #53627C;
@@ -213,7 +213,7 @@ section {
 }
 
 #dashboard p {
-	font-size: 24px;
+	font-size: 14px;
     font-weight: 300;
     color: #8da2b5;
     margin-bottom: 0px;
@@ -225,6 +225,13 @@ section {
     color: #0095f7;
     text-transform: uppercase;
     letter-spacing: .05em;
+}
+
+#dummy {
+    width: 600px !important;
+    height: 600px !important;
+	display: block;
+	margin: 0 auto;
 }
 
 

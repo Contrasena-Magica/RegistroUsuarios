@@ -59,7 +59,7 @@ async function soloAdmin(req, res, next) {
     if (logueado) {
       return next();
     }
-    res.status(401).send("Acceso no autorizado: por favor, inicia sesión con una cuenta de administrador.");
+    res.redirect("/");
   } catch (err) {
     res.status(500).send("Error interno del servidor");
   }

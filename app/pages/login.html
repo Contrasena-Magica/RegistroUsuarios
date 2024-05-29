@@ -1,73 +1,68 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar sesión</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link rel="stylesheet" href="login.css">
-  <script src="login.js" defer></script>
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+    <script src="login.js" defer></script>
+    </head>
+    <body>
 
-<div class="container" id="container">
-    <div class="form-container sign-up">
-        <form action="/api/register" method="POST">
-            <h1>Crear Cuenta</h1>
-            <div class="social-icons">
-                <i class="fa-solid fa-user"></i>
-            </div>
-            <span>Usa tu correo para registrarte</span>
-            <label>
-                Nombre de usuario:
-                <input type="text" name="user"  placeholder="Nombre de usuario" required>
-            </label>
-            <label>
-                Correo electrónico:
-                <input type="email" name="email"  placeholder="Correo electrónico" required>
-            </label>
-            <label>
-                Contraseña:
-                <input type="password" name="password" placeholder="Contraseña" required>
-            </label>
-            <button type="submit">Registrarse</button>
-        </form>
-    </div>
-    <div class="form-container sign-in">
-        <form action="/api/login" method="POST">
-            <h1>Iniciar Sesión</h1>
-            <div class="social-icons">
-                <i class="fa-solid fa-user"></i>
-            </div>
-            <span>Inicie sesión con su correo y contraseña</span>
-            <label>
-                Correo electrónico:
-                <input type="email" name="user" placeholder="Correo electrónico" required>
-            </label>
-            <label>
-                Contraseña:
-                <input type="password" name="password" placeholder="Contraseña" required>
-            </label>
-            <a href="#">¿Olvidaste tu contraseña?</a>
-            <button type="submit">Iniciar Sesión</button>
-        </form>
-    </div>
-    <div class="toggle-container">
-        <div class="toggle">
-            <div class="toggle-panel toggle-left">
-                <h1>¡Bienvenido de vuelta!</h1>
-                <p>Ingrese sus detalles personales para acceder</p>
-                <button class="hidden" id="login">Iniciar Sesión</button>
-            </div>
-            <div class="toggle-panel toggle-right">
-                <h1>¡Bienvenido!</h1>
-                <p>Regístrese con sus detalles personales para acceder</p>
-                <button class="hidden" id="register">Registrarse</button>
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form action="/api/register" method="POST">
+                <h1>Crear Cuenta</h1>
+                <div class="social-icons">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <span>Usa tu correo para registrarte</span>
+                <label>
+                    <input type="text" name="user"  placeholder="Nombre de usuario" required>
+                </label>
+                <label>
+                    <input type="email" name="email"  placeholder="Correo electrónico" required>
+                </label>
+                <label>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                </label>
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form action="/api/login" method="POST">
+                <h1>Iniciar Sesión</h1>
+                <div class="social-icons">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <span>Inicie sesión con su correo y contraseña</span>
+                <label>
+                    <input type="email" name="user" placeholder="Correo electrónico" required>
+                </label>
+                <label>
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                </label>
+                <a href="#">¿Olvidaste tu contraseña?</a>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>¡Bienvenido de vuelta!</h1>
+                    <p>Ingrese sus detalles personales para acceder</p>
+                    <button class="hidden" id="login">Iniciar Sesión</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>¡Bienvenido!</h1>
+                    <p>Regístrese con sus detalles personales para acceder</p>
+                    <button class="hidden" id="register">Registrarse</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="script.js"></script>
-</body>
-</html>
+    <script src="script.js"></script>
+    </body>
+    </html>

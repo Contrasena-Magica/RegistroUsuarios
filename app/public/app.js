@@ -1,9 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
-    fetchDataAndRenderChart();
-});
 
 function fetchDataAndRenderChart() {
-    fetch('/data')
+    fetch('http://localhost:4000/data')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -26,11 +23,9 @@ function renderChart(data) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'COVID-19 Cases by Continent',
+                label: 'Casos',
                 data: dataCases,
-                backgroundColor: [
-                    'red', 'blue', 'yellow', 'green', 'purple', 'orange'
-                ],
+                backgroundColor: [ 'red ', 'brown', 'yellow', 'blue', 'green' ],
                 hoverOffset: 4
             }]
         },
@@ -42,9 +37,59 @@ function renderChart(data) {
                 },
                 title: {
                     display: true,
-                    text: 'COVID-19 Cases by Continent'
+                    text: 'Casos registrados de Covid por continente (millones)'
                 }
             }
         }
     });
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    const dataCount = 5;
+    const data = {
+        labels: ['America', 'Africa', 'Asia', 'Europa', 'Oceania'],
+        datasets: [{
+            label: 'Casos',
+            data: [ ' 193.5 ', ' 15 ', ' 310.7 ', ' 229.5 ', ' 39.5 ' ],
+            backgroundColor: [ 'red ', 'brown', 'yellow', 'blue', 'green']
+        }]
+    };
+
+    const config = {
+        type: 'doughnut',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: true, 
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Casos registrados de Covid por continente (millones)'
+                }
+            }
+        }
+    };
+
+    const ctx = document.getElementById('dummy').getContext('2d');
+    // Verifica si ya existe un gráfico y destrúyelo
+    if (window.dummyChart) {
+        window.dummyChart.destroy();
+    }
+    // Crea el gráfico y almacénalo globalmente
+    window.dummyChart = new Chart(ctx, config);
+});
+
+// Función para generar datos aleatorios
+function generateRandomData(count, min, max) {
+    return Array.from({ length: count }, () => Math.floor(Math.random() * (max - min + 1) + min));
+}
+
+// Función para generar colores aleatorios
+function generateRandomColors(count) {
+    return Array.from({ length: count }, () => `#${Math.floor(Math.random() * 16777215).toString(16)}`);
 }

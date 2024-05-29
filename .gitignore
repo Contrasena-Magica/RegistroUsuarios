@@ -1,3 +1,15 @@
 #ignorar el archivo .env
 .env
+.db
+
+#ignorar la carpeta node_modules
+node_modules
+
+#ignorar .DS_Store
+.DS_Store
+
+#ignorar extension .db
+*.db
+
+
 

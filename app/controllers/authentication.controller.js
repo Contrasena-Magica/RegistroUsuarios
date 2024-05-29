@@ -28,13 +28,13 @@ async function login(req, res) {
 
         // Validar si el usuario existe
         if (!usuarioAResvisar) {
-            return res.status(400).send({ status: "Error", message: "Usuario o contraseña incorrectos" });
+            return res.status(400).json({ success: false, message: "Usuario o contraseña incorrectos" });
         }
 
         // Comparar la contraseña ingresada con la almacenada
         const loginCorrecto = await bcryptjs.compare(password, usuarioAResvisar.password);
         if (!loginCorrecto) {
-            return res.status(400).send({ status: "Error", message: "Usuario o contraseña incorrectos" });
+            return res.status(400).json({ success: false, message: "Usuario o contraseña incorrectos" });
         }
 
         // Generar token JWT

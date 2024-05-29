@@ -38,12 +38,9 @@
         <div class="container">
             <img src="/images/logo.png" class="img-fluid nav-logo-desktop" alt="Company Logo" style="height: 50px; width: auto;">
             <ul class="navbar-nav ml-auto nav-right" data-easing="easeInOutExpo" data-speed="1250" data-offset="65">
-                <li class="nav-item nav-custom-link">
-                    <a class="nav-link" href="index.html">Dashboard <i class="icon ion-ios-arrow-forward icon-mobile"></i></a>
-                </li>
                 <!-- Logout Link -->
                 <li class="nav-item nav-custom-link">
-                    <a class="nav-link" id="logoutButton" href="/">Log out <i class="icon ion-ios-arrow-forward icon-mobile"></i></a>
+                    <a class="nav-link" id="logoutButton" href="/logout">Log out <i class="icon ion-ios-arrow-forward icon-mobile"></i></a>
                 </li>
             </ul>
         </div>
@@ -53,18 +50,20 @@
   <!-- E N D  N A V B A R -->
   
     <!-- D A S H B O A R D -->
-    <section id="dashboard>
+    <section id="dashboard">
       <div class="container">
           <div class="row">
               <div>
                   <h2 class="text-center">Dashboard Covid-19</h2>
                   <p class="text-center">Este dashboard proporciona un análisis visual y detallado de los datos relacionados con COVID-19, obtenidos de Kaggle, una de las plataformas más grandes y confiables de ciencia de datos. Los datos visualizados aquí están diseñados para ayudar a entender mejor las tendencias de la pandemia, incluyendo casos confirmados, recuperaciones y fallecimientos a nivel mundial.</p>
+                  <!-- <canvas id="myChart" width="600" height="300"></canvas> -->
+                  <canvas id="dummy" width="600" height="300"></canvas>
+                  <script src="app.js"></script>
               </div>
           </div>
       </div>
   </section>
   <!-- E N D  D A S H B O A R D -->
-  <script src="app.js"></script>
 
   <!--  F O O T E R  -->
   <footer>

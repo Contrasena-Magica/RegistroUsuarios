@@ -3,7 +3,7 @@ import express from 'express';
 import { covidDB } from './config/database';
 
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 
 app.get('/data', (req, res) => {
   const sql = 'SELECT continent, SUM(cases) AS total_cases FROM covid GROUP BY continent';
@@ -16,6 +16,7 @@ app.get('/data', (req, res) => {
     res.json(rows);
   });
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
