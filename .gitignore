@@ -9,6 +9,4 @@ app/pages/admin/partials
 app/pages/admin/gulpfile.js
 app/pages/admin/index.html
 
-app/public/admin/*
-app/public/assets/*
-node_modules
+
