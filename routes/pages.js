@@ -25,6 +25,42 @@ router.get('/logout', (req, res) => {
     res.render('logout');
 });
 
+function generateRandomChartData() {
+    // Generate some random data for demonstration
+    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    const values = Array.from({ length: 7 }, () => Math.floor(Math.random() * 100));
+    return { labels, values };
+}
+
+// Define the endpoint to generate the chart image using QuickChart.io
+router.get('/chart', (req, res) => {
+    const chartData = generateRandomChartData();
+    const chartUrl = `https://quickchart.io/chart?c=${encodeURIComponent(JSON.stringify({
+        type: 'bar',
+        data: {
+            labels: chartData.labels,
+            datasets: [{
+                label: 'Random Data',
+                data: chartData.values,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    }))}`;
+
+    // Redirect to the QuickChart.io URL to generate the chart image
+    res.redirect(chartUrl);
+});
+
+
 app.get('/logout', (req, res) => {
     res.clearCookie('jwt'); 
     res.redirect('/logout'); 

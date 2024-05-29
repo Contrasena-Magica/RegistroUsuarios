@@ -38,45 +38,12 @@
                 <h2>Settings</h2>
                 <p>Customize your dashboard settings and preferences here.</p>
             </section>
-            <section id="graphs" class="card"> <!-- New section for displaying graphs -->
+            <section id="graphs" class="card"> 
                 <h2>Graphs</h2>
-                <canvas id="randomGraph"></canvas> <!-- Placeholder for the graph -->
+                <img src="/chart" alt="Chart"> 
             </section>
         </main>
     </div>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('/random-graph-data') // Assuming this endpoint returns the graph data
-                .then(response => response.json())
-                .then(graphData => {
-                    const ctx = document.getElementById('randomGraph').getContext('2d');
-
-                    const chart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: graphData.labels,
-                            datasets: [{
-                                label: 'Random Data',
-                                data: graphData.values,
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching graph data:', error);
-                });
-        });
-    </script>
 </body>
 </html>
