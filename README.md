@@ -45,8 +45,10 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 1. Clona este repositorio en tu máquina local utilizando Git:    
 
     ```
-    git clone https://github.com/Contrasena-Magica/bnmx-app.git
+    git clone https://github.com/Contrasena-Magica/RegistroUsuarios.git
     ```
+
+La rama especifica del proyecto es */RegistroUsuarios/tree/amado*
 
 2. Instala las dependencias necesarias:
 
