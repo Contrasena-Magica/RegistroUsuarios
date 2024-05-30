@@ -9,7 +9,7 @@ const SECRET_KEY = 'anythinggoes';
 const db = mysql2.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: '@MniSQL2004',
+	password: 'password',
 	database: 'users'
 });
 
@@ -86,13 +86,13 @@ exports.forgotPassword = (req, res) => {
     db.query("SELECT * FROM user WHERE email = ?", [email], async (err, result) => {
         if (err) throw err;
         if (result.length === 0) {
-            return res.render('login', {
+            return res.render('signup', {
                 message: "Email not found in database"
             });
         } else {
             console.log("Email sent for recovery");
             sendForgotEmail(email);
-            return res.render('login', {
+            return res.render('signup', {
                 message: "Recovery email sent"
             });
         }

@@ -15,12 +15,23 @@ app.use(express.json());
 const db = mysql2.createConnection({
 	host: 'localhost',
 	user: 'root',
-	password: '@MniSQL2004',
+	password: 'password',
 	database: 'users'
 });
 
 db.connect( (err) => {
 	if (err) throw err;
+	/*var sql = "CREATE DATABASE IF NOT EXISTS movies";
+	db.query(sql, function(err, result) {
+		if (err) throw err;
+		console.log("Database created");
+	});
+	var sql2 = "CREATE TABLE IF NOT EXISTS movie (title VARCHAR(255), country VARCHAR(255), duration VARCHAR(255))";
+	db.query(sql2, function (err, result) {
+		if (err) throw err;
+		console.log("Table created");
+	})
+	*/
 	console.log("DB connected");
 });
 
