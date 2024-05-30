@@ -7,6 +7,8 @@ que permite a estos mismos auntenticarse de forma segura, crear cuentas, gestion
 
 El dashboard muestra los casos de COVID-19 registrados por continente.
 
+![Dasboard](/app/public/images/dashboard.png)
+
 ## Estructura del Proyecto
 
 El repositorio está organizado de la siguiente manera:
